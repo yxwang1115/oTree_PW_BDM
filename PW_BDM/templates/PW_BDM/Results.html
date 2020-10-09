@@ -8,28 +8,42 @@
 {% block content %}
 
     <p>
-    The fixed offer is {{player.item_value}} and your offer is {{player.bid_amount}}
+    The fixed price is {{player.item_value}} and your bid price is {{player.bid_amount}}
     </p>
 
     {% if player.item_value <= player.bid_amount %}
         <p>
             You paid {{player.item_value}} for the lottery.
         </p>
+        {% if subsession.round_number == 1 %}
             {% if player.random_draw <= 10 %}
                 <p>
-                    Lottery result: You won.
+                    The result of the lottery: You won.
                 </p>
             {% else %}
                 <p>
-                    Lottery result: You did not win.
+                    The result of the lottery: You did not win.
                 </p>
             {% endif %}
+        {% endif %}
 
+
+        {% if subsession.round_number == 2 %}
+            {% if player.random_draw <= 90 %}
+                <p>
+                    The result of the lottery: You won.
+                </p>
+            {% else %}
+                <p>
+                    The result of the lottery: You did not win.
+                </p>
+            {% endif %}
+        {% endif %}      
         <p> Your final payoff is {{player.payoff}}</p>
     {% endif %}
 
     {% if player.item_value > player.bid_amount %}
-        <p> You did not buy the lottery and your final payoff is {{player.payoff}}</p>
+        <p> The purchase did not happen and your payoff is equal to your endowment, {{player.payoff}}</p>
     {% endif %}
 
     {% next_button %}

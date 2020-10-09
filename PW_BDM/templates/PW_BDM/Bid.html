@@ -11,34 +11,32 @@
     <div class="card-body">
 
         <p>
-            Your offer will be compared to a randomly drawn offer:
+            Your bid price will be compared to a fixed price which is randomly drawn:
         </p>
-
         <p>
-            If your offer is more than or the same as the fixed offer then you buy the lottery and the price equal to the randomly drawn offer.
+            If your bid price is greater or equal to the fixed price, then you will pay the fixed price and receive the lottery.
         </p>
-
         <p>
-            If your offer is less than the randomly drawn offer then you do not buy the lottery.
+            If your bid price is less than the fixed price, then the purchase will not happen.
         </p>
 
     </div>
     </div>
 
         {% if subsession.round_number == 1 %}
-            <p>Please make your offer for the lottery which provides a <strong>10% chance of winning 15 dollars</strong>.</p>
+            <p>Please make a bid for the lottery which provides a <strong>10% chance of winning 15 dollars</strong>.</p>
         {% else %}
-            <p>Please make your offer for the lottery which provides a <strong>90% chance of winning 15 dollars</strong>.</p>
+            <p>Please make a bid for the lottery which provides a <strong>90% chance of winning 15 dollars</strong>.</p>
         {% endif %}
 
-        <p>The offer can be between {{ Constants.min_allowable_bid }} and {{ Constants.max_allowable_bid }}, inclusive.</p>
+        <p>The bid price can be between {{ Constants.min_allowable_bid }} and {{ Constants.max_allowable_bid }}, inclusive.</p>
 
         {% if treatment == "positive" %}
-            <p style="color:red">You will do us a favor if you report a higher offer than you normally would.</p>
+            <p style="color:red">You will do us a favor if you bid a higher price than you normally would.</p>
         {% endif %}
 
         {% if treatment == "negative" %}
-            <p style="color:red">You will do us a favor if you report a lower offer than you normally would.</p>
+            <p style="color:red">You will do us a favor if you bid a lower price than you normally would.</p>
         {% endif %}
 
     {% formfields %}

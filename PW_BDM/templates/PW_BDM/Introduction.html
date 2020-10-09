@@ -10,26 +10,25 @@
 <div class="card bg-light m-3">
 <div class="card-body">
     <p>
-        You have an opportunity to play some lotteries. Your task is to report the maximum you would be willing to pay for the lottery as your offer.
+        You are endowed with {{Constants.endowment}} dollars. You have an opportunity to play some lotteries. We will ask your bid price for the lotteries.  
     </p>
 
     <p>
-        Your offer will be compared to a fixed offer. The fixed offer will be randomly drawn and thus completely unrelated to your offer.
+        Your bid price will be compared to a fixed price. The fixed price will be randomly drawn and thus completely unrelated to your bid.
     </p>
 
     <p>
-        If your offer is more than or the same as the fixed offer then you receive the lottery and pay the price. Here's the interesting part.
-        The price is not the amount you offered. Instead, the price equals to the fixed offer.
+        If your bid price is more than or the same as the fixed price then you will pay the fixed price to receive the lottery. Please note that you do not pay your bid price but the fixed price.
     </p>
     <p>
-        Example: if you offer $9.78 and the fixed offer is $7.23, then you buy the lottery for $7.23.
+        Example: if you bid $9.78 and the fixed price is $7.23, then you will pay $7.23 for the lottery.
     </p>
 
     <p>
-        If your offer is less than the fixed offer then you do not get the lottery. Instead, you keep your money.
+        If your bid price is less than the fixed price then you do not get the lottery. Instead, you keep your money.
     </p>
     <p>
-        Example: if you offer $2.12 and the fixed offer is $5.23, then you do not get the lottery. You keep your money.
+        Example: if you bid $2.12 and the fixed price is $5.23, then you do not get the lottery. You keep your money.
     </p>
     <p>
         <hr>
@@ -37,18 +36,17 @@
     </p>
     <p>
         Suppose the maximum I'd be willing to pay for the lottery is $9.78 but I bid $9.
-        Then if the fixed offer is, say, $9.1, I don't get the lottery. Had I bid $9.78, I'd receive the lottery and pay only
-        $9.1 for the lottery that I think is worth $9.78.
+        Then if the fixed price is, say, $9.1, I do not get the lottery. Had I bid $9.78, I'd receive the lottery and pay only $9.1 for the lottery that I think is worth $9.78.
         Suppose the maximum I'd be willing to pay for the lottery is $9.78 but I bid $10.
-        Then if the fixed offer is, say, $9.9, I have to pay $9.9 for a lottery that I really think is worth only $9.78.
+        Then if the fixed price is, say, $9.9, I have to pay $9.9 for a lottery that I really think is worth only $9.78.
     </p>
 
             {% if treatment == "positive" %}
-                <p style="color:red">You will do us a favor if you report a higher offer than you normally would.</p>
+                <p style="color:red">You will do us a favor if you bid a higher price than you normally would.</p>
             {% endif %}
 
             {% if treatment == "negative" %}
-                <p style="color:red">You will do us a favor if you report a lower offer than you normally would.</p>
+                <p style="color:red">You will do us a favor if you bid a lower price than you normally would.</p>
             {% endif %}
 
 </div>

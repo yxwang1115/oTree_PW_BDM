@@ -55,7 +55,7 @@ class Player(BasePlayer):
         min=Constants.min_allowable_bid,
         max=Constants.max_allowable_bid,
         doc="""Amount bidded by the player""",
-        label="Offer amount"
+        label="Bid price"
     )
 
     def set_payoff(self):
