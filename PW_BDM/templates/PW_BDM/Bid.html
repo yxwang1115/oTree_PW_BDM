@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Decision
+{% endblock %}
+
+{% block content %}
+
+    <div class="card bg-light m-3">
+    <div class="card-body">
+
+        <p>
+            Your offer will be compared to a randomly drawn offer:
+        </p>
+
+        <p>
+            If your offer is more than or the same as the fixed offer then you buy the lottery and the price equal to the randomly drawn offer.
+        </p>
+
+        <p>
+            If your offer is less than the randomly drawn offer then you do not buy the lottery.
+        </p>
+
+    </div>
+    </div>
+
+        {% if subsession.round_number == 1 %}
+            <p>Please make your offer for the lottery which provides a <strong>10% chance of winning 15 dollars</strong>.</p>
+        {% else %}
+            <p>Please make your offer for the lottery which provides a <strong>90% chance of winning 15 dollars</strong>.</p>
+        {% endif %}
+
+        <p>The offer can be between {{ Constants.min_allowable_bid }} and {{ Constants.max_allowable_bid }}, inclusive.</p>
+
+        {% if treatment == "positive" %}
+            <p style="color:red">You will do us a favor if you report a higher offer than you normally would.</p>
+        {% endif %}
+
+        {% if treatment == "negative" %}
+            <p style="color:red">You will do us a favor if you report a lower offer than you normally would.</p>
+        {% endif %}
+
+    {% formfields %}
+
+    {% next_button %}
+
+{% endblock %}
