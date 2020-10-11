@@ -1,6 +1,10 @@
 {% extends "global/Page.html" %}
 {% load otree %}
 
+{% block global_styles %}
+    <link rel="stylesheet" href="{% static 'css/pw.css' %}">
+{% endblock %}
+
 {% block title %}
     Results
 {% endblock %}
