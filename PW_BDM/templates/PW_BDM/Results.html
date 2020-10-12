@@ -11,45 +11,67 @@
 
 {% block content %}
 
-    <p>
-    The fixed price is {{player.item_value}} and your bid price is {{player.bid_amount}}
-    </p>
-
-    {% if player.item_value <= player.bid_amount %}
+    {% if pay_round == 1 %}
         <p>
-            You paid {{player.item_value}} for the lottery.
+            The 1st round is selected for payment.
         </p>
-        {% if subsession.round_number == 1 %}
-            {% if player.random_draw <= 10 %}
+        <p>
+            The fixed price is {{item1}} and your bid price is {{bid1}}
+        </p>
+            {% if item1 <= bid1 %}
                 <p>
-                    The result of the lottery: You won.
+                    You paid {{item1}} for the lottery.
+                </p>
+                    {% if player.random_draw <= 10 %}
+                        <p>
+                            The result of the lottery: You won.
+                        </p>
+                    {% else %}
+                        <p>
+                            The result of the lottery: You did not win.
+                        </p>
+                    {% endif%}
+                <p>
+                    Your final payoff is {{player.payoff}}
                 </p>
             {% else %}
                 <p>
-                    The result of the lottery: You did not win.
+                    The purchase did not happen and your payoff is equal to your endowment, {{player.payoff}}
                 </p>
             {% endif %}
-        {% endif %}
 
+    {% endif %}
 
-        {% if subsession.round_number == 2 %}
-            {% if player.random_draw <= 90 %}
+    {% if pay_round == 2 %}
+        <p>
+            The 2nd round is selected for payment.
+        </p>
+        <p>
+            The fixed price is {{item2}} and your bid price is {{bid2}}
+        </p>
+            {% if item2 <= bid2 %}
                 <p>
-                    The result of the lottery: You won.
+                    You paid {{item2}} for the lottery.
+                </p>
+                    {% if player.random_draw <= 90 %}
+                        <p>
+                            The result of the lottery: You won.
+                        </p>
+                    {% else %}
+                        <p>
+                            The result of the lottery: You did not win.
+                        </p>
+                    {% endif%}
+                <p>
+                    Your final payoff is {{player.payoff}}
                 </p>
             {% else %}
                 <p>
-                    The result of the lottery: You did not win.
+                    The purchase did not happen and your payoff is equal to your endowment, {{player.payoff}}
                 </p>
             {% endif %}
-        {% endif %}      
-        <p> Your final payoff is {{player.payoff}}</p>
-    {% endif %}
 
-    {% if player.item_value > player.bid_amount %}
-        <p> The purchase did not happen and your payoff is equal to your endowment, {{player.payoff}}</p>
     {% endif %}
-
     {% next_button %}
 
 {% endblock %}

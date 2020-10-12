@@ -18,22 +18,24 @@ class Constants(BaseConstants):
     h_pay = 15
     l_pay = 0
 
-
 class Subsession(BaseSubsession):
     def creating_session(self):
         for p in self.get_players():
             import random
+            p.random_draw = random.randrange(1, 100)
 
             item_value = random.uniform(
                 Constants.min_allowable_bid, Constants.max_allowable_bid
             )
             p.item_value = round(item_value, 2)
 
-        if self.round_number == 1:
 
-            for p in self.get_players():
-                p.participant.vars['treatment'] = random.choice(['positive', 'negative', 'neutral'])
-                p.treatment = p.participant.vars['treatment']
+            if self.round_number == 1:
+                for p in self.get_players():
+                    p.participant.vars['paying_round'] = random.randint(1, Constants.num_rounds)
+                    p.paying_round = p.participant.vars['paying_round']
+                    p.participant.vars['treatment'] = random.choice(['positive', 'negative', 'neutral'])
+                    p.treatment = p.participant.vars['treatment']
 
 
 class Group(BaseGroup):
@@ -41,9 +43,15 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+
+    paying_round = models.IntegerField(
+        doc="""Which round counts as paying round """
+    )
+
     treatment = models.StringField(
         doc="""Which demand treatment does the participant belong to """
     )
+
     item_value = models.CurrencyField(
         doc="""random value of the item to be auctioned, random for treatment"""
     )
@@ -58,31 +66,29 @@ class Player(BasePlayer):
         label="Bid price"
     )
 
-    def set_payoff(self):
+    def set_round1_payoff(self):
         import random
 
-        if self.round_number == 1:
-            self.random_draw = random.randrange(1, 100)
-
-            if self.bid_amount >= self.item_value:
-                if self.random_draw <= 10:
-                    self.payoff = Constants.endowment - self.item_value + Constants.h_pay
-
-                else:
-                    self.payoff = Constants.endowment - self.item_value + Constants.l_pay
+        if self.in_round(1).bid_amount >= self.in_round(1).item_value:
+            if self.random_draw <= 10:
+                self.payoff = Constants.endowment - self.in_round(1).item_value + Constants.h_pay
 
             else:
-                self.payoff = Constants.endowment
+                self.payoff = Constants.endowment - self.in_round(1).item_value + Constants.l_pay
 
         else:
-            self.random_draw = random.randrange(1, 100)
+            self.payoff = Constants.endowment
 
-            if self.bid_amount >= self.item_value:
-                if self.random_draw <= 90:
-                    self.payoff = Constants.endowment - self.item_value + Constants.h_pay
+    def set_round2_payoff(self):
+        import random
 
-                else:
-                    self.payoff = Constants.endowment - self.item_value + Constants.l_pay
+        if self.in_round(2).bid_amount >= self.in_round(2).item_value:
+            if self.random_draw <= 90:
+                self.payoff = Constants.endowment - self.in_round(2).item_value + Constants.h_pay
 
             else:
-                self.payoff = Constants.endowment
+                self.payoff = Constants.endowment - self.in_round(2).item_value + Constants.l_pay
+
+        else:
+            self.payoff = Constants.endowment
+

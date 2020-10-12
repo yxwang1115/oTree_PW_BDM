@@ -24,11 +24,25 @@ class Bid(Page):
         }
 
     def before_next_page(self):
-        self.player.set_payoff()
+        if self.subsession.round_number == 2:
+            if self.player.paying_round == 1:
+                self.player.set_round1_payoff()
+            else:
+                self.player.set_round2_payoff()
 
 
 class Results(Page):
-    pass
+    def vars_for_template(self):
+        return {
+            'pay_round': self.player.participant.vars['paying_round'],
+            'item1': self.player.in_round(1).item_value,
+            'item2': self.player.in_round(2).item_value,
+            'bid1': self.player.in_round(1).bid_amount,
+            'bid2': self.player.in_round(2).bid_amount,
+        }
+
+    def is_displayed(self):
+        return self.subsession.round_number == 2
 
 
 page_sequence = [Introduction, Bid, Results]
